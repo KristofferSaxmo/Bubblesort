@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ConsoleApp2
 {
@@ -14,12 +14,26 @@ namespace ConsoleApp2
             int[] nummer = new int[antal];
             for (int i = 0; i < antal; i++)
             {
-                nummer[i] = random.Next(högst);
-                Console.Write(nummer[i]);
+                nummer[i] = random.Next(högst+1);
             }
-            Swap(ref nummer[1], ref nummer[2]);
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            for (int q = 0; q < antal-1; q++)
+            {
+                for (int i = 0; i < antal - 1-q; i++)
+                {
+                    if (nummer[i] > nummer[i + 1])
+                        Swap(ref nummer[i], ref nummer[i + 1]);
+                }
+            }
+            watch.Stop();
             foreach (int element in nummer)
+            {
                 Console.Write(element + " ");
+            }
+            var tid = watch.ElapsedMilliseconds;
+            Console.WriteLine(" ");
+            Console.Write(tid/1000);
+
         }
         static void Swap(ref int a, ref int b)
         {
