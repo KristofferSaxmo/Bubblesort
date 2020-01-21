@@ -16,6 +16,7 @@ namespace ConsoleApp2
             {
                 nummer[i] = random.Next(högst + 1);
             }
+            int percentage = 0;
             var watch = System.Diagnostics.Stopwatch.StartNew();
             for (int q = 0; q < antal - 1; q++)
             {
@@ -25,7 +26,14 @@ namespace ConsoleApp2
                         Swap(ref nummer[i], ref nummer[i + 1]);
                 }
                 if (q != 0)
-                    Console.WriteLine((float)q / antal * 100f + "%");
+                {
+                    int per = (int)Math.Floor((float)q / antal * 100f);
+                    if (per > percentage)
+                    {
+                        percentage = per;
+                        Console.WriteLine(percentage + "%");
+                    }
+                }
                 else
                     Console.WriteLine(0 + "%");
             }
