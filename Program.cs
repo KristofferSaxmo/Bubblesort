@@ -8,22 +8,26 @@ namespace ConsoleApp2
         {
             Console.WriteLine("Antal nummer: ");
             int antal = int.Parse(Console.ReadLine());
-            Console.WriteLine("Högsta möjliga nummer: ");
+            Console.WriteLine("Högsta möjliga tal: ");
             int högst = int.Parse(Console.ReadLine());
             Random random = new Random();
             int[] nummer = new int[antal];
             for (int i = 0; i < antal; i++)
             {
-                nummer[i] = random.Next(högst+1);
+                nummer[i] = random.Next(högst + 1);
             }
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            for (int q = 0; q < antal-1; q++)
+            for (int q = 0; q < antal - 1; q++)
             {
-                for (int i = 0; i < antal - 1-q; i++)
+                for (int i = 0; i < antal - 1 - q; i++)
                 {
                     if (nummer[i] > nummer[i + 1])
                         Swap(ref nummer[i], ref nummer[i + 1]);
                 }
+                if (q != 0)
+                    Console.WriteLine((float)q / antal * 100f + "%");
+                else
+                    Console.WriteLine(0 + "%");
             }
             watch.Stop();
             foreach (int element in nummer)
@@ -32,7 +36,7 @@ namespace ConsoleApp2
             }
             var tid = watch.ElapsedMilliseconds;
             Console.WriteLine(" ");
-            Console.Write(tid/1000);
+            Console.Write(tid / 1000 + " sekunder");
 
         }
         static void Swap(ref int a, ref int b)
