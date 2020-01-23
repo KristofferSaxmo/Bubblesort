@@ -42,10 +42,52 @@ namespace ConsoleApp2
             {
                 Console.Write(element + " ");
             }
-            var tid = watch.ElapsedMilliseconds;
+            var minuter = watch.ElapsedMilliseconds / 1000 / 60;
+            var sekunder = watch.ElapsedMilliseconds / 1000 % 60;
             Console.WriteLine(" ");
-            Console.Write(tid / 1000 + " sekunder");
-
+            Console.WriteLine(" ");
+            if (minuter == 0)
+            {
+                if (sekunder == 1)
+                {
+                    Console.WriteLine(sekunder + " sekund");
+                }
+                else
+                {
+                    Console.WriteLine(sekunder + " sekunder");
+                }
+            }
+            else if (minuter == 1)
+            {
+                if (sekunder == 0)
+                {
+                    Console.WriteLine(minuter + " minut");
+                }
+                else if (sekunder == 1)
+                {
+                    Console.WriteLine(minuter + " minut " + sekunder + " sekund");
+                }
+                else
+                {
+                    Console.WriteLine(minuter + " minut " + sekunder + " sekunder");
+                }
+            }
+            else
+            {
+                if (sekunder == 0)
+                {
+                    Console.WriteLine(minuter + " minuter");
+                }
+                else if (sekunder == 1)
+                {
+                    Console.WriteLine(minuter + " minuter " + sekunder + " sekund");
+                }
+                else
+                {
+                    Console.WriteLine(minuter + " minuter " + sekunder + " sekunder");
+                }
+            }
+            Console.WriteLine(watch.ElapsedMilliseconds / 1000);
         }
         static void Swap(ref int a, ref int b)
         {
