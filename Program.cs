@@ -9,14 +9,13 @@ namespace ConsoleApp2
             Random random = new Random();
             Console.WriteLine("Antal nummer: ");
             int antal = int.Parse(Console.ReadLine());
-            int[] a = new int[antal];
             Console.WriteLine("Högsta möjliga tal: ");
             int högst = int.Parse(Console.ReadLine());
             Console.WriteLine(" ");
             Console.WriteLine("1. Bubble Sort");
             Console.WriteLine("2. Insertion Sort");
             Console.WriteLine("3. Merge Sort");
-            Console.WriteLine("4. Alla");
+            Console.WriteLine("4. All");
             int sort = int.Parse(Console.ReadLine());
             if (sort == 1)
             {
@@ -28,7 +27,64 @@ namespace ConsoleApp2
             }
             else if (sort == 3)
             {
-                MergeSort(a, 0, antal - 1);
+                int len = antal;
+                int[] numbers = new int[antal];
+                for (int i = 0; i < antal; i++)
+                {
+                    numbers[i] = random.Next(högst + 1);
+                }
+                var watch3 = System.Diagnostics.Stopwatch.StartNew();
+                SortMethod(numbers, 0, len - 1);
+                watch3.Stop();
+                foreach (int item in numbers)
+                {
+                    Console.Write(item + " ");
+                }
+                var minuter3 = watch3.ElapsedMilliseconds / 1000 / 60;
+                var sekunder3 = watch3.ElapsedMilliseconds / 1000 % 60;
+                Console.WriteLine(" ");
+                Console.WriteLine(" ");
+                if (minuter3 == 0)
+                {
+                    if (sekunder3 == 1)
+                    {
+                        Console.WriteLine(sekunder3 + " sekund");
+                    }
+                    else
+                    {
+                        Console.WriteLine(sekunder3 + " sekunder");
+                    }
+                }
+                else if (minuter3 == 1)
+                {
+                    if (sekunder3 == 0)
+                    {
+                        Console.WriteLine(minuter3 + " minut");
+                    }
+                    else if (sekunder3 == 1)
+                    {
+                        Console.WriteLine(minuter3 + " minut " + sekunder3 + " sekund");
+                    }
+                    else
+                    {
+                        Console.WriteLine(minuter3 + " minut " + sekunder3 + " sekunder");
+                    }
+                }
+                else
+                {
+                    if (sekunder3 == 0)
+                    {
+                        Console.WriteLine(minuter3 + " minuter");
+                    }
+                    else if (sekunder3 == 1)
+                    {
+                        Console.WriteLine(minuter3 + " minuter " + sekunder3 + " sekund");
+                    }
+                    else
+                    {
+                        Console.WriteLine(minuter3 + " minuter " + sekunder3 + " sekunder");
+                    }
+                }
             }
             else if (sort == 4)
             {
@@ -83,6 +139,22 @@ namespace ConsoleApp2
                 }
                 var minuter2 = watch2.ElapsedMilliseconds / 1000 / 60;
                 var sekunder2 = watch2.ElapsedMilliseconds / 1000 % 60;
+                Console.WriteLine(" ");
+                int len = antal;
+                int[] numbers = new int[antal];
+                for (int i = 0; i < antal; i++)
+                {
+                    numbers[i] = random.Next(högst + 1);
+                }
+                var watch3 = System.Diagnostics.Stopwatch.StartNew();
+                SortMethod(numbers, 0, len - 1);
+                watch3.Stop();
+                foreach (int item in numbers)
+                {
+                    Console.Write(item + " ");
+                }
+                var minuter3 = watch3.ElapsedMilliseconds / 1000 / 60;
+                var sekunder3 = watch3.ElapsedMilliseconds / 1000 % 60;
                 Console.WriteLine(" ");
                 Console.WriteLine(" ");
                 Console.Write("Bubble Sort - ");
@@ -168,6 +240,49 @@ namespace ConsoleApp2
                     else
                     {
                         Console.WriteLine(minuter2 + " minuter " + sekunder2 + " sekunder");
+                    }
+                }
+                Console.WriteLine(" ");
+                Console.Write("Merge Sort - ");
+                if (minuter3 == 0)
+                {
+                    if (sekunder3 == 1)
+                    {
+                        Console.WriteLine(sekunder3 + " sekund");
+                    }
+                    else
+                    {
+                        Console.WriteLine(sekunder3 + " sekunder");
+                    }
+                }
+                else if (minuter3 == 1)
+                {
+                    if (sekunder3 == 0)
+                    {
+                        Console.WriteLine(minuter3 + " minut");
+                    }
+                    else if (sekunder3 == 1)
+                    {
+                        Console.WriteLine(minuter3 + " minut " + sekunder3 + " sekund");
+                    }
+                    else
+                    {
+                        Console.WriteLine(minuter3 + " minut " + sekunder3 + " sekunder");
+                    }
+                }
+                else
+                {
+                    if (sekunder3 == 0)
+                    {
+                        Console.WriteLine(minuter3 + " minuter");
+                    }
+                    else if (sekunder3 == 1)
+                    {
+                        Console.WriteLine(minuter3 + " minuter " + sekunder3 + " sekund");
+                    }
+                    else
+                    {
+                        Console.WriteLine(minuter3 + " minuter " + sekunder3 + " sekunder");
                     }
                 }
             }
@@ -316,38 +431,39 @@ namespace ConsoleApp2
                 }
             }
         }
-        static void Merge(int[] input, int left, int middle, int right)
+        static public void MergeMethod(int[] numbers, int left, int mid, int right)
         {
-            int[] leftArray = new int[middle - left + 1];
-            int[] rightArray = new int[right - middle];
-
-            Array.Copy(input, left, leftArray, 0, middle - left + 1);
-            Array.Copy(input, middle + 1, rightArray, 0, right - middle);
-
-            int i = 0;
-            int j = 0;
-            for (int k = left; k < right + 1; k++)
+            int[] temp = new int[numbers.Length];
+            int i, left_end, num_elements, tmp_pos;
+            left_end = (mid - 1);
+            tmp_pos = left;
+            num_elements = (right - left + 1);
+            while ((left <= left_end) && (mid <= right))
             {
-                if (i == leftArray.Length)
-                {
-                    input[k] = rightArray[j];
-                    j++;
-                }
-                else if (j == rightArray.Length)
-                {
-                    input[k] = leftArray[i];
-                    i++;
-                }
-                else if (leftArray[i] <= rightArray[j])
-                {
-                    input[k] = leftArray[i];
-                    i++;
-                }
+                if (numbers[left] <= numbers[mid])
+                    temp[tmp_pos++] = numbers[left++];
                 else
-                {
-                    input[k] = rightArray[j];
-                    j++;
-                }
+                    temp[tmp_pos++] = numbers[mid++];
+            }
+            while (left <= left_end)
+                temp[tmp_pos++] = numbers[left++];
+            while (mid <= right)
+                temp[tmp_pos++] = numbers[mid++];
+            for (i = 0; i < num_elements; i++)
+            {
+                numbers[right] = temp[right];
+                right--;
+            }
+        }
+        static public void SortMethod(int[] numbers, int left, int right)
+        {
+            int mid;
+            if (right > left)
+            {
+                mid = (right + left) / 2;
+                SortMethod(numbers, left, mid);
+                SortMethod(numbers, (mid + 1), right);
+                MergeMethod(numbers, left, (mid + 1), right);
             }
         }
         static void Swap(ref int a, ref int b)
@@ -355,59 +471,6 @@ namespace ConsoleApp2
             int temp = a;
             a = b;
             b = temp;
-        }
-        static void MergeSort(int[] input, int left, int right)
-        {
-            if (left < right)
-            {
-                int middle = (left + right) / 2;
-
-                MergeSort(input, left, middle);
-                MergeSort(input, middle + 1, right);
-
-                Merge(input, left, middle, right);
-                if (minuter3 == 0)
-                {
-                    if (sekunder3 == 1)
-                    {
-                        Console.WriteLine(sekunder3 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(sekunder3 + " sekunder");
-                    }
-                }
-                else if (minuter3 == 1)
-                {
-                    if (sekunder3 == 0)
-                    {
-                        Console.WriteLine(minuter3 + " minut");
-                    }
-                    else if (sekunder3 == 1)
-                    {
-                        Console.WriteLine(minuter3 + " minut " + sekunder3 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(minuter3 + " minut " + sekunder3 + " sekunder");
-                    }
-                }
-                else
-                {
-                    if (sekunder3 == 0)
-                    {
-                        Console.WriteLine(minuter3 + " minuter");
-                    }
-                    else if (sekunder3 == 1)
-                    {
-                        Console.WriteLine(minuter3 + " minuter " + sekunder3 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(minuter3 + " minuter " + sekunder3 + " sekunder");
-                    }
-                }
-            }
         }
     }
 }
