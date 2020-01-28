@@ -27,16 +27,15 @@ namespace ConsoleApp2
             }
             else if (sort == 3)
             {
-                int len = antal;
-                int[] numbers = new int[antal];
+                int[] arr = new int[antal];
                 for (int i = 0; i < antal; i++)
                 {
-                    numbers[i] = random.Next(högst + 1);
+                    arr[i] = random.Next(högst + 1);
                 }
                 var watch3 = System.Diagnostics.Stopwatch.StartNew();
-                SortMethod(numbers, 0, len - 1);
+                MergeSort(arr, 0, arr.Length - 1);
                 watch3.Stop();
-                foreach (int item in numbers)
+                foreach (int item in arr)
                 {
                     Console.Write(item + " ");
                 }
@@ -147,7 +146,7 @@ namespace ConsoleApp2
                     numbers[i] = random.Next(högst + 1);
                 }
                 var watch3 = System.Diagnostics.Stopwatch.StartNew();
-                SortMethod(numbers, 0, len - 1);
+                MergeSort(numbers, 0, len - 1);
                 watch3.Stop();
                 foreach (int item in numbers)
                 {
@@ -431,39 +430,46 @@ namespace ConsoleApp2
                 }
             }
         }
-        static public void MergeMethod(int[] numbers, int left, int mid, int right)
+        static void Merge(int[] input, int left, int middle, int right)
         {
-            int[] temp = new int[numbers.Length];
-            int i, left_end, num_elements, tmp_pos;
-            left_end = (mid - 1);
-            tmp_pos = left;
-            num_elements = (right - left + 1);
-            while ((left <= left_end) && (mid <= right))
+            int[] leftArray = new int[middle - left + 1];
+            int[] rightArray = new int[right - middle]; 
+            Array.Copy(input, left, leftArray, 0, middle - left + 1);
+            Array.Copy(input, middle + 1, rightArray, 0, right - middle);
+            int i = 0;
+            int j = 0;
+            for (int k = left; k < right + 1; k++)
             {
-                if (numbers[left] <= numbers[mid])
-                    temp[tmp_pos++] = numbers[left++];
+                if (i == leftArray.Length)
+                {
+                    input[k] = rightArray[j];
+                    j++;
+                }
+                else if (j == rightArray.Length)
+                {
+                    input[k] = leftArray[i];
+                    i++;
+                }
+                else if (leftArray[i] <= rightArray[j])
+                {
+                    input[k] = leftArray[i];
+                    i++;
+                }
                 else
-                    temp[tmp_pos++] = numbers[mid++];
-            }
-            while (left <= left_end)
-                temp[tmp_pos++] = numbers[left++];
-            while (mid <= right)
-                temp[tmp_pos++] = numbers[mid++];
-            for (i = 0; i < num_elements; i++)
-            {
-                numbers[right] = temp[right];
-                right--;
+                {
+                    input[k] = rightArray[j];
+                    j++;
+                }
             }
         }
-        static public void SortMethod(int[] numbers, int left, int right)
+        static void MergeSort(int[] input, int left, int right)
         {
-            int mid;
-            if (right > left)
+            if (left < right)
             {
-                mid = (right + left) / 2;
-                SortMethod(numbers, left, mid);
-                SortMethod(numbers, (mid + 1), right);
-                MergeMethod(numbers, left, (mid + 1), right);
+                int middle = (left + right) / 2;
+                MergeSort(input, left, middle);
+                MergeSort(input, middle + 1, right);
+                Merge(input, left, middle, right);
             }
         }
         static void Swap(ref int a, ref int b)
