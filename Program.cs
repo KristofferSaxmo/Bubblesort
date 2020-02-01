@@ -9,86 +9,72 @@ namespace ConsoleApp2
             Random random = new Random();
             Console.WriteLine("Antal nummer: ");
             int antal = int.Parse(Console.ReadLine());
+            Console.WriteLine(" ");
             Console.WriteLine("Högsta möjliga tal: ");
             int högst = int.Parse(Console.ReadLine());
             Console.WriteLine(" ");
+            Console.WriteLine("Skriv 1, 2, 3 eller 4");
             Console.WriteLine("1. Bubble Sort");
             Console.WriteLine("2. Insertion Sort");
             Console.WriteLine("3. Merge Sort");
-            Console.WriteLine("4. All");
+            Console.WriteLine("4. Alla");
+            Console.WriteLine(" ");
             int sort = int.Parse(Console.ReadLine());
-            if (sort == 1)
+            Console.WriteLine(" ");
+
+            if (sort == 1) //Bubble Sort
             {
                 Bubble(ref antal, ref högst);
             }
-            else if (sort == 2)
+
+            else if (sort == 2) //Insertion Sort
             {
                 Insertion(ref antal, ref högst);
             }
-            else if (sort == 3)
+
+            else if (sort == 3) //Merge Sort
             {
-                int[] arr = new int[antal];
+                int[] nummer3 = new int[antal];
+                Console.WriteLine("Laddar...");
+                Console.WriteLine(" ");
                 for (int i = 0; i < antal; i++)
                 {
-                    arr[i] = random.Next(högst + 1);
+                    nummer3[i] = random.Next(högst + 1);
                 }
-                var watch3 = System.Diagnostics.Stopwatch.StartNew();
-                MergeSort(arr, 0, arr.Length - 1);
-                watch3.Stop();
-                foreach (int item in arr)
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                MergeSort(nummer3, 0, nummer3.Length - 1);
+                watch.Stop();
+                if (antal <= 100000)
                 {
-                    Console.Write(item + " ");
-                }
-                var minuter3 = watch3.ElapsedMilliseconds / 1000 / 60;
-                var sekunder3 = watch3.ElapsedMilliseconds / 1000 % 60;
-                Console.WriteLine(" ");
-                Console.WriteLine(" ");
-                if (minuter3 == 0)
-                {
-                    if (sekunder3 == 1)
+                    foreach (int item in nummer3)
                     {
-                        Console.WriteLine(sekunder3 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(sekunder3 + " sekunder");
-                    }
-                }
-                else if (minuter3 == 1)
-                {
-                    if (sekunder3 == 0)
-                    {
-                        Console.WriteLine(minuter3 + " minut");
-                    }
-                    else if (sekunder3 == 1)
-                    {
-                        Console.WriteLine(minuter3 + " minut " + sekunder3 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(minuter3 + " minut " + sekunder3 + " sekunder");
+                        Console.Write(item + " ");
                     }
                 }
                 else
                 {
-                    if (sekunder3 == 0)
-                    {
-                        Console.WriteLine(minuter3 + " minuter");
-                    }
-                    else if (sekunder3 == 1)
-                    {
-                        Console.WriteLine(minuter3 + " minuter " + sekunder3 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(minuter3 + " minuter " + sekunder3 + " sekunder");
-                    }
+                    Console.WriteLine("KLAR");
+                    Console.WriteLine(" ");
                 }
+                var minuter = watch.ElapsedMilliseconds / 1000 / 60;
+                var sekunder = watch.ElapsedMilliseconds / 1000 % 60;
+                Console.WriteLine(" ");
+                Console.WriteLine(" ");
+                int s = Convert.ToInt32(sekunder);
+                int m = Convert.ToInt32(minuter);
+                Tid(ref m, ref s);
             }
-            else if (sort == 4)
+
+            else if (sort == 4) //Alla
             {
+                int s, m;
+
+                //Bubble Sort
                 int[] nummer = new int[antal];
                 int flag, val;
+                Console.WriteLine("Bubble Sort");
+                Console.WriteLine("Laddar...");
+                Console.WriteLine(" ");
                 for (int i = 0; i < antal; i++)
                 {
                     nummer[i] = random.Next(högst + 1);
@@ -103,19 +89,33 @@ namespace ConsoleApp2
                     }
                 }
                 watch.Stop();
-                foreach (int element in nummer)
+                if (antal <= 100000)
                 {
-                    Console.Write(element + " ");
+                    foreach (int item in nummer)
+                    {
+                        Console.Write(item + " ");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("KLAR");
+                    Console.WriteLine(" ");
                 }
                 var minuter = watch.ElapsedMilliseconds / 1000 / 60;
                 var sekunder = watch.ElapsedMilliseconds / 1000 % 60;
                 Console.WriteLine(" ");
+
+                //Insertion Sort
                 int[] nummer2 = new int[antal];
                 for (int i = 0; i < antal; i++)
                 {
                     nummer2[i] = random.Next(högst + 1);
                 }
                 var watch2 = System.Diagnostics.Stopwatch.StartNew();
+                Console.WriteLine(" ");
+                Console.WriteLine("Insertion Sort");
+                Console.WriteLine("Laddar...");
+                Console.WriteLine(" ");
                 for (int i = 1; i < antal; i++)
                 {
                     val = nummer2[i];
@@ -132,15 +132,29 @@ namespace ConsoleApp2
                     }
                 }
                 watch2.Stop();
-                foreach (int element in nummer2)
+                if (antal <= 100000)
                 {
-                    Console.Write(element + " ");
+                    foreach (int item in nummer2)
+                    {
+                        Console.Write(item + " ");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("KLAR");
+                    Console.WriteLine(" ");
                 }
                 var minuter2 = watch2.ElapsedMilliseconds / 1000 / 60;
                 var sekunder2 = watch2.ElapsedMilliseconds / 1000 % 60;
                 Console.WriteLine(" ");
+
+                //Merge Sort
                 int len = antal;
                 int[] numbers = new int[antal];
+                Console.WriteLine(" ");
+                Console.WriteLine("Merge Sort");
+                Console.WriteLine("Laddar...");
+                Console.WriteLine(" ");
                 for (int i = 0; i < antal; i++)
                 {
                     numbers[i] = random.Next(högst + 1);
@@ -148,148 +162,49 @@ namespace ConsoleApp2
                 var watch3 = System.Diagnostics.Stopwatch.StartNew();
                 MergeSort(numbers, 0, len - 1);
                 watch3.Stop();
-                foreach (int item in numbers)
+                if (antal <= 100000)
                 {
-                    Console.Write(item + " ");
+                    foreach (int item in numbers)
+                    {
+                        Console.Write(item + " ");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("KLAR");
+                    Console.WriteLine(" ");
                 }
                 var minuter3 = watch3.ElapsedMilliseconds / 1000 / 60;
                 var sekunder3 = watch3.ElapsedMilliseconds / 1000 % 60;
                 Console.WriteLine(" ");
                 Console.WriteLine(" ");
+                Console.WriteLine("Tider:");
+                Console.WriteLine(" ");
+
                 Console.Write("Bubble Sort - ");
-                if (minuter == 0)
-                {
-                    if (sekunder == 1)
-                    {
-                        Console.WriteLine(sekunder + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(sekunder + " sekunder");
-                    }
-                }
-                else if (minuter == 1)
-                {
-                    if (sekunder == 0)
-                    {
-                        Console.WriteLine(minuter + " minut");
-                    }
-                    else if (sekunder == 1)
-                    {
-                        Console.WriteLine(minuter + " minut " + sekunder + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(minuter + " minut " + sekunder + " sekunder");
-                    }
-                }
-                else
-                {
-                    if (sekunder == 0)
-                    {
-                        Console.WriteLine(minuter + " minuter");
-                    }
-                    else if (sekunder == 1)
-                    {
-                        Console.WriteLine(minuter + " minuter " + sekunder + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(minuter + " minuter " + sekunder + " sekunder");
-                    }
-                }
+                s = Convert.ToInt32(sekunder);
+                m = Convert.ToInt32(minuter);
+                Tid(ref m, ref s);
                 Console.WriteLine(" ");
+
                 Console.Write("Insertion Sort - ");
-                if (minuter2 == 0)
-                {
-                    if (sekunder2 == 1)
-                    {
-                        Console.WriteLine(sekunder2 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(sekunder2 + " sekunder");
-                    }
-                }
-                else if (minuter2 == 1)
-                {
-                    if (sekunder2 == 0)
-                    {
-                        Console.WriteLine(minuter2 + " minut");
-                    }
-                    else if (sekunder2 == 1)
-                    {
-                        Console.WriteLine(minuter2 + " minut " + sekunder2 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(minuter2 + " minut " + sekunder2 + " sekunder");
-                    }
-                }
-                else
-                {
-                    if (sekunder2 == 0)
-                    {
-                        Console.WriteLine(minuter2 + " minuter");
-                    }
-                    else if (sekunder2 == 1)
-                    {
-                        Console.WriteLine(minuter2 + " minuter " + sekunder2 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(minuter2 + " minuter " + sekunder2 + " sekunder");
-                    }
-                }
+                s = Convert.ToInt32(sekunder2);
+                m = Convert.ToInt32(minuter2);
+                Tid(ref m, ref s);
                 Console.WriteLine(" ");
+
                 Console.Write("Merge Sort - ");
-                if (minuter3 == 0)
-                {
-                    if (sekunder3 == 1)
-                    {
-                        Console.WriteLine(sekunder3 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(sekunder3 + " sekunder");
-                    }
-                }
-                else if (minuter3 == 1)
-                {
-                    if (sekunder3 == 0)
-                    {
-                        Console.WriteLine(minuter3 + " minut");
-                    }
-                    else if (sekunder3 == 1)
-                    {
-                        Console.WriteLine(minuter3 + " minut " + sekunder3 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(minuter3 + " minut " + sekunder3 + " sekunder");
-                    }
-                }
-                else
-                {
-                    if (sekunder3 == 0)
-                    {
-                        Console.WriteLine(minuter3 + " minuter");
-                    }
-                    else if (sekunder3 == 1)
-                    {
-                        Console.WriteLine(minuter3 + " minuter " + sekunder3 + " sekund");
-                    }
-                    else
-                    {
-                        Console.WriteLine(minuter3 + " minuter " + sekunder3 + " sekunder");
-                    }
-                }
+                s = Convert.ToInt32(sekunder3);
+                m = Convert.ToInt32(minuter3);
+                Tid(ref m, ref s);
             }
         }
         static void Bubble(ref int antal, ref int högst)
         {
             Random random = new Random();
             int[] nummer = new int[antal];
+            Console.WriteLine("Laddar...");
+            Console.WriteLine(" ");
             for (int i = 0; i < antal; i++)
             {
                 nummer[i] = random.Next(högst + 1);
@@ -304,66 +219,37 @@ namespace ConsoleApp2
                 }
             }
             watch.Stop();
-            foreach (int element in nummer)
+            if (antal <= 100000)
             {
-                Console.Write(element + " ");
+                foreach (int item in nummer)
+                {
+                    Console.Write(item + " ");
+                }
+            }
+            else
+            {
+                Console.WriteLine("KLAR");
             }
             var minuter = watch.ElapsedMilliseconds / 1000 / 60;
             var sekunder = watch.ElapsedMilliseconds / 1000 % 60;
             Console.WriteLine(" ");
             Console.WriteLine(" ");
-            if (minuter == 0)
-            {
-                if (sekunder == 1)
-                {
-                    Console.WriteLine(sekunder + " sekund");
-                }
-                else
-                {
-                    Console.WriteLine(sekunder + " sekunder");
-                }
-            }
-            else if (minuter == 1)
-            {
-                if (sekunder == 0)
-                {
-                    Console.WriteLine(minuter + " minut");
-                }
-                else if (sekunder == 1)
-                {
-                    Console.WriteLine(minuter + " minut " + sekunder + " sekund");
-                }
-                else
-                {
-                    Console.WriteLine(minuter + " minut " + sekunder + " sekunder");
-                }
-            }
-            else
-            {
-                if (sekunder == 0)
-                {
-                    Console.WriteLine(minuter + " minuter");
-                }
-                else if (sekunder == 1)
-                {
-                    Console.WriteLine(minuter + " minuter " + sekunder + " sekund");
-                }
-                else
-                {
-                    Console.WriteLine(minuter + " minuter " + sekunder + " sekunder");
-                }
-            }
+            int s = Convert.ToInt32(sekunder);
+            int m = Convert.ToInt32(minuter);
+            Tid(ref m, ref s);
         }
         static void Insertion(ref int antal, ref int högst)
         {
             Random random = new Random();
             int flag, val;
             int[] nummer2 = new int[antal];
+            Console.WriteLine("Laddar...");
+            Console.WriteLine(" ");
             for (int i = 0; i < antal; i++)
             {
                 nummer2[i] = random.Next(högst + 1);
             }
-            var watch2 = System.Diagnostics.Stopwatch.StartNew();
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             for (int i = 1; i < antal; i++)
             {
                 val = nummer2[i];
@@ -379,97 +265,66 @@ namespace ConsoleApp2
                     else flag = 1;
                 }
             }
-            watch2.Stop();
-            foreach (int element in nummer2)
+            watch.Stop();
+            if (antal <= 100000)
             {
-                Console.Write(element + " ");
-            }
-            var minuter2 = watch2.ElapsedMilliseconds / 1000 / 60;
-            var sekunder2 = watch2.ElapsedMilliseconds / 1000 % 60;
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            if (minuter2 == 0)
-            {
-                if (sekunder2 == 1)
+                foreach (int item in nummer2)
                 {
-                    Console.WriteLine(sekunder2 + " sekund");
-                }
-                else
-                {
-                    Console.WriteLine(sekunder2 + " sekunder");
-                }
-            }
-            else if (minuter2 == 1)
-            {
-                if (sekunder2 == 0)
-                {
-                    Console.WriteLine(minuter2 + " minut");
-                }
-                else if (sekunder2 == 1)
-                {
-                    Console.WriteLine(minuter2 + " minut " + sekunder2 + " sekund");
-                }
-                else
-                {
-                    Console.WriteLine(minuter2 + " minut " + sekunder2 + " sekunder");
+                    Console.Write(item + " ");
                 }
             }
             else
             {
-                if (sekunder2 == 0)
-                {
-                    Console.WriteLine(minuter2 + " minuter");
-                }
-                else if (sekunder2 == 1)
-                {
-                    Console.WriteLine(minuter2 + " minuter " + sekunder2 + " sekund");
-                }
-                else
-                {
-                    Console.WriteLine(minuter2 + " minuter " + sekunder2 + " sekunder");
-                }
+                Console.WriteLine("KLAR");
             }
+            var minuter = watch.ElapsedMilliseconds / 1000 / 60;
+            var sekunder = watch.ElapsedMilliseconds / 1000 % 60;
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            int s = Convert.ToInt32(sekunder);
+            int m = Convert.ToInt32(minuter);
+            Tid(ref m, ref s);
         }
-        static void Merge(int[] input, int left, int middle, int right)
+        static void Merge(int[] input, int vänster, int mitten, int höger)
         {
-            int[] leftArray = new int[middle - left + 1];
-            int[] rightArray = new int[right - middle]; 
-            Array.Copy(input, left, leftArray, 0, middle - left + 1);
-            Array.Copy(input, middle + 1, rightArray, 0, right - middle);
+            int[] vänsterarray = new int[mitten - vänster + 1];
+            int[] högerarray = new int[höger - mitten];
+            Array.Copy(input, vänster, vänsterarray, 0, mitten - vänster + 1);
+            Array.Copy(input, mitten + 1, högerarray, 0, höger - mitten);
             int i = 0;
             int j = 0;
-            for (int k = left; k < right + 1; k++)
+            for (int k = vänster; k < höger + 1; k++)
             {
-                if (i == leftArray.Length)
+                if (i == vänsterarray.Length)
                 {
-                    input[k] = rightArray[j];
+                    input[k] = högerarray[j];
                     j++;
                 }
-                else if (j == rightArray.Length)
+                else if (j == högerarray.Length)
                 {
-                    input[k] = leftArray[i];
+                    input[k] = vänsterarray[i];
                     i++;
                 }
-                else if (leftArray[i] <= rightArray[j])
+                else if (vänsterarray[i] <= högerarray[j])
                 {
-                    input[k] = leftArray[i];
+                    input[k] = vänsterarray[i];
                     i++;
                 }
                 else
                 {
-                    input[k] = rightArray[j];
+                    input[k] = högerarray[j];
                     j++;
                 }
             }
         }
-        static void MergeSort(int[] input, int left, int right)
+        static void MergeSort(int[] input, int vänster, int höger)
         {
-            if (left < right)
+            if (vänster < höger)
             {
-                int middle = (left + right) / 2;
-                MergeSort(input, left, middle);
-                MergeSort(input, middle + 1, right);
-                Merge(input, left, middle, right);
+                int mitten = (vänster + höger) / 2;
+                MergeSort(input, vänster, mitten);
+                MergeSort(input, mitten + 1, höger);
+                Merge(input, vänster, mitten, höger);
             }
         }
         static void Swap(ref int a, ref int b)
@@ -477,6 +332,50 @@ namespace ConsoleApp2
             int temp = a;
             a = b;
             b = temp;
+        }
+        static void Tid(ref int m, ref int s)
+        {
+            if (m == 0)
+            {
+                if (s == 1)
+                {
+                    Console.WriteLine(s + " sekund");
+                }
+                else
+                {
+                    Console.WriteLine(s + " sekunder");
+                }
+            }
+            else if (m == 1)
+            {
+                if (s == 0)
+                {
+                    Console.WriteLine(m + " minut");
+                }
+                else if (s == 1)
+                {
+                    Console.WriteLine(m + " minut " + s + " sekund");
+                }
+                else
+                {
+                    Console.WriteLine(m + " minut " + s + " sekunder");
+                }
+            }
+            else
+            {
+                if (s == 0)
+                {
+                    Console.WriteLine(m + " minuter");
+                }
+                else if (s == 1)
+                {
+                    Console.WriteLine(m + " minuter " + s + " sekund");
+                }
+                else
+                {
+                    Console.WriteLine(m + " minuter " + s + " sekunder");
+                }
+            }
         }
     }
 }
